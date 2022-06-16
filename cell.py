@@ -4,5 +4,5 @@ class Cell:
 
     def __repr__(self):
         if self.alive:
-            return "O"
-        return "."
+            return "○"
+        return "•"
