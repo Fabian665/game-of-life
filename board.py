@@ -2,17 +2,18 @@ from cell import Cell
 
 
 class Board:
-    def __init__(self, size=35):
-        self._size = size
-        self._board = [[Cell() for _index in range(size)] for _index in range(size)]
+    def __init__(self, width=35, height=None):
+        self._width = width
+        self._height = width if height is None else height
+        self._board = [[Cell() for _index in range(self._width)] for _index in range(self._height)]
 
     def get_cell(self, row_index: int, col_index: int) -> Cell:
         return self._board[row_index][col_index]
 
     def update(self):
         cells_to_flip = []
-        for row_index in range(self._size):
-            for col_index in range(self._size):
+        for row_index in range(self._width):
+            for col_index in range(self._height):
                 cell_coordinate = (row_index, col_index)
                 cell = self.get_cell(*cell_coordinate)
                 neighbours_sum = self.check_neighbours(*cell_coordinate)
@@ -35,7 +36,7 @@ class Board:
                 if not (neighbour_row == 0 and neighbour_column == 0):
                     neighbour_row_copy, neighbour_column = (neighbour_row + row_index), (neighbour_column + col_index)
 
-                    if (0 <= neighbour_row_copy < self._size) and (0 <= neighbour_column < self._size):
+                    if (0 <= neighbour_row_copy < self._height) and (0 <= neighbour_column < self._width):
                         sum_live_neighbours += self._board[neighbour_row_copy][neighbour_column].is_alive()
 
         return sum_live_neighbours
