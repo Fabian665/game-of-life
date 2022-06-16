@@ -51,7 +51,6 @@ class BoardTest(TestCase):
             else:
                 self.assertFalse(cell.is_alive(), f"Cell no. {index}, should be False")
 
-
     def test_check_neighbours(self):
         board = Board(3)
         middle = (1, 1)
@@ -79,10 +78,6 @@ class BoardTest(TestCase):
             expected_result = 1
             self.assertEqual(cell, expected_result, f"{top_right} neighbour sum should be {expected_result} but"
                                                     f" is {cell}")
-
-
-    def test_cells_generator(self):
-        assert True
 
     def test_flip_cell(self):
         board = Board(3)
