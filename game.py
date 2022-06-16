@@ -46,7 +46,7 @@ class Game:
                         (17, 40),
                         (20, 29), (20, 30), (20, 31),
                         (21, 29),
-                        (21, 30)
+                        (22, 30)
                     ]
                 )
         }
@@ -66,14 +66,15 @@ class Game:
         board = Board(*size)
         board.flip_cells(cells)
 
+        os.system('cls' if os.name == 'nt' else 'clear')
         print(board)
         input("Press Enter to start animation")
 
         while True:
-            os.system('cls' if os.name=='nt' else 'clear')
+            os.system('cls' if os.name == 'nt' else 'clear')
             print(board.update())
             print("Press ctrl+c to end")
-            time.sleep(0.25)
+            time.sleep(0.15)
 
 
 if __name__ == '__main__':

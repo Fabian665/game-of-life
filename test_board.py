@@ -143,7 +143,7 @@ class BoardTest(TestCase):
             (17, 40),
             (20, 29), (20, 30), (20, 31),
             (21, 29),
-            (21, 30)
+            (22, 30)
         ]
 
         board.flip_cells(cells)
