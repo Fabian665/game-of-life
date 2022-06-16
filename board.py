@@ -49,5 +49,12 @@ class Board:
     def flip_cell(self, row: int, column: int) -> None:
         self._board[row][column].change_state()
 
+    def flip_cells(self, cells: list) -> None:
+        for cell in cells:
+            self.flip_cell(*cell)
+
     def __repr__(self):
         return "\n".join(' '.join(map(str, row)) for row in self._board)
+
+    def __str__(self):
+        return self.__repr__()
