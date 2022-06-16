@@ -10,5 +10,5 @@ class Cell:
 
     def __repr__(self):
         if self._alive:
-            return "○"
-        return "•"
+            return "■"
+        return " "

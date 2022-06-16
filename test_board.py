@@ -99,3 +99,25 @@ class BoardTest(TestCase):
         a_cell = (2, 0)
         board.flip_cell(*a_cell)
         self.assertTrue(board.get_cell(*a_cell).is_alive(), f"cell {a_cell} should be True")
+
+    def test_koks_galaxy(self):
+        board = Board(13)
+        cells = [
+            (2, 2), (2, 3),     (2, 5), (2, 6), (2, 7), (2, 8), (2, 9), (2, 10),
+            (3, 2), (3, 3),     (3, 5), (3, 6), (3, 7), (3, 8), (3, 9), (3, 10),
+            (4, 2), (4, 3),
+            (5, 2), (5, 3),                                     (5, 9), (5, 10),
+            (6, 2), (6, 3),                                     (6, 9), (6, 10),
+            (7, 2), (7, 3),                                     (7, 9), (7, 10),
+                                                                (8, 9), (8, 10),
+            (9, 2), (9, 3), (9, 4), (9, 5), (9, 6), (9, 7),     (9, 9), (9, 10),
+            (10, 2), (10, 3), (10, 4), (10, 5), (10, 6), (10, 7),     (10, 9), (10, 10)
+        ]
+        for cell in cells:
+            board.flip_cell(*cell)
+
+        for i in range(8):
+            board.update()
+
+        for cell in cells:
+            self.assertTrue(board.get_cell(*cell).is_alive(), f"cell {cell} should be True")

@@ -9,7 +9,7 @@ class Board:
     def get_cell(self, row_index: int, col_index: int) -> Cell:
         return self._board[row_index][col_index]
 
-    def update(self) -> None:
+    def update(self):
         cells_to_flip = []
         for row_index in range(self._size):
             for col_index in range(self._size):
@@ -25,6 +25,8 @@ class Board:
 
         for cell in cells_to_flip:
             self.flip_cell(*cell)
+
+        return self
 
     def check_neighbours(self, row_index: int, col_index: int) -> int:
         sum_live_neighbours = 0
