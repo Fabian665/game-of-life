@@ -113,8 +113,8 @@ class BoardTest(TestCase):
             (9, 2), (9, 3), (9, 4), (9, 5), (9, 6), (9, 7),     (9, 9), (9, 10),
             (10, 2), (10, 3), (10, 4), (10, 5), (10, 6), (10, 7),     (10, 9), (10, 10)
         ]
-        for cell in cells:
-            board.flip_cell(*cell)
+
+        board.flip_cells(cells)
 
         for i in range(8):
             board.update()
