@@ -5,6 +5,9 @@ from board import Board
 
 class Game:
     def __init__(self):
+        """
+        initializes a board and starts the loop
+        """
         self.board = None
         self.configurations = {
             1:
@@ -26,7 +29,7 @@ class Game:
             2:
                 (
                     "Glider gun maker",
-                    (50, 30),
+                    (30, 50),
                     [
                         (2, 35),
                         (3, 35), (3, 37),
@@ -53,7 +56,15 @@ class Game:
         choice = self.choose()
         self.play(choice)
 
-    def choose(self) -> int:
+    def choose(self):
+        """
+        prompts the user to choose which configuration to play
+
+        Returns
+        -------
+        int
+            choice number
+        """
         print("Which configuration do you want to check out?")
         for index, (name, _, _) in self.configurations.items():
             print(f"{index}. {name}")
@@ -61,7 +72,19 @@ class Game:
         choice = int(input(string))
         return choice
 
-    def play(self, configuration: int):
+    def play(self, configuration):
+        """
+        starts game loop
+
+        Parameters
+        ----------
+        configuration: int
+            which configuration to use
+
+        Returns
+        -------
+        None
+        """
         _, size, cells = self.configurations[configuration]
         board = Board(*size)
         board.flip_cells(cells)

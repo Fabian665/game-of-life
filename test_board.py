@@ -123,7 +123,7 @@ class BoardTest(TestCase):
             self.assertTrue(board.get_cell(*cell).is_alive(), f"cell {cell} should be True")
 
     def test_glider_gun_maker(self):
-        board = Board(43, 40)
+        board = Board(40, 43)
         cells = [
             (2, 35),
             (3, 35), (3, 37),
