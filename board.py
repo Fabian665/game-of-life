@@ -6,12 +6,23 @@ class Board:
         self._size = size
         self._board = [[Cell() for _index in range(size)] for _index in range(size)]
 
-    def update(self):
+    def get_cell(self, row_index: int, col_index: int) -> Cell:
+        return self._board[row_index][col_index]
+
+    def update(self) -> None:
         for row_index in range(self._size):
             for col_index in range(self._size):
-                print(self.check_neighbours(row_index, col_index))
+                cell_coordinate = (row_index, col_index)
+                cell = self.get_cell(*cell_coordinate)
+                neighbours_sum = self.check_neighbours(*cell_coordinate)
+                if cell.is_alive():
+                    if neighbours_sum not in range(2, 4):
+                        cell.change_state()
+                else:
+                    if neighbours_sum == 3:
+                        cell.change_state()
 
-    def check_neighbours(self, row_index, col_index):
+    def check_neighbours(self, row_index: int, col_index: int) -> int:
         sum_live_neighbours = 0
         for neighbour_row in range(-1, 2):
             for neighbour_column in range(-1, 2):
@@ -28,8 +39,8 @@ class Board:
             for cell in row:
                 yield cell
 
-    def set_board(self):
-        self._board[1][1].change_state()
+    def flip_cell(self, row: int, column: int) -> None:
+        self._board[row][column].change_state()
 
     def __repr__(self):
         return "\n".join(' '.join(map(str, row)) for row in self._board)
