@@ -12,8 +12,8 @@ class Board:
 
     def update(self):
         cells_to_flip = []
-        for row_index in range(self._width):
-            for col_index in range(self._height):
+        for row_index in range(self._height):
+            for col_index in range(self._width):
                 cell_coordinate = (row_index, col_index)
                 cell = self.get_cell(*cell_coordinate)
                 neighbours_sum = self.check_neighbours(*cell_coordinate)

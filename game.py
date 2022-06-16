@@ -1,4 +1,5 @@
 import os
+import time
 from board import Board
 
 
@@ -25,7 +26,7 @@ class Game:
             2:
                 (
                     "Glider gun maker",
-                    (100, 70),
+                    (50, 30),
                     [
                         (2, 35),
                         (3, 35), (3, 37),
@@ -50,17 +51,30 @@ class Game:
                 )
         }
         choice = self.choose()
+        self.play(choice)
 
-
-    def choose(self):
+    def choose(self) -> int:
         print("Which configuration do you want to check out?")
-        for index, (name, _, _) in enumerate(self.configurations.items()):
+        for index, (name, _, _) in self.configurations.items():
             print(f"{index}. {name}")
         string = f"{list(range(1, len(self.configurations) + 1))}: "
         choice = int(input(string))
         return choice
 
-    def play(self, conf):
-        board = Board()
+    def play(self, configuration: int):
+        _, size, cells = self.configurations[configuration]
+        board = Board(*size)
+        board.flip_cells(cells)
 
-        os.system('cls' if os.name=='nt' else 'clear')
+        print(board)
+        input("Press Enter to start animation")
+
+        while True:
+            os.system('cls' if os.name=='nt' else 'clear')
+            print(board.update())
+            print("Press ctrl+c to end")
+            time.sleep(0.25)
+
+
+if __name__ == '__main__':
+    game = Game()
