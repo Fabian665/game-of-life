@@ -10,6 +10,7 @@ class Board:
         return self._board[row_index][col_index]
 
     def update(self) -> None:
+        cells_to_flip = []
         for row_index in range(self._size):
             for col_index in range(self._size):
                 cell_coordinate = (row_index, col_index)
@@ -17,10 +18,13 @@ class Board:
                 neighbours_sum = self.check_neighbours(*cell_coordinate)
                 if cell.is_alive():
                     if neighbours_sum not in range(2, 4):
-                        cell.change_state()
+                        cells_to_flip.append(cell_coordinate)
                 else:
                     if neighbours_sum == 3:
-                        cell.change_state()
+                        cells_to_flip.append(cell_coordinate)
+
+        for cell in cells_to_flip:
+            self.flip_cell(*cell)
 
     def check_neighbours(self, row_index: int, col_index: int) -> int:
         sum_live_neighbours = 0
@@ -29,7 +33,7 @@ class Board:
                 if not (neighbour_row == 0 and neighbour_column == 0):
                     neighbour_row_copy, neighbour_column = (neighbour_row + row_index), (neighbour_column + col_index)
 
-                    if (0 <= neighbour_row_copy < (self._size - 1)) and (0 <= neighbour_column < (self._size - 1)):
+                    if (0 <= neighbour_row_copy < self._size) and (0 <= neighbour_column < self._size):
                         sum_live_neighbours += self._board[neighbour_row_copy][neighbour_column].is_alive()
 
         return sum_live_neighbours

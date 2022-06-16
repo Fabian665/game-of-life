@@ -19,16 +19,38 @@ class BoardTest(TestCase):
         for index, cell in enumerate(board.cells_generator()):
             self.assertFalse(cell.is_alive())
 
+        board = Board(3)
         board.flip_cell(0, 1)
         board.flip_cell(0, 2)
         board.flip_cell(1, 2)
         board.update()
 
         for index, cell in enumerate(board.cells_generator()):
-            if index == 2 or index == 3 or index == 6:
-                self.assertTrue(cell.is_alive())
+            if index == 1 or index == 2 or index == 4 or index == 5:
+                self.assertTrue(cell.is_alive(), f"Cell no. {index}, should be True")
             else:
-                self.assertFalse(cell.is_alive())
+                self.assertFalse(cell.is_alive(), f"Cell no. {index}, should be False")
+
+        board = Board(3)
+        board.flip_cell(1, 0)
+        board.flip_cell(1, 1)
+        board.flip_cell(1, 2)
+        board.update()
+
+        for index, cell in enumerate(board.cells_generator()):
+            if index == 1 or index == 4 or index == 7:
+                self.assertTrue(cell.is_alive(), f"Cell no. {index}, should be True")
+            else:
+                self.assertFalse(cell.is_alive(), f"Cell no. {index}, should be False")
+
+        board.update()
+
+        for index, cell in enumerate(board.cells_generator()):
+            if index == 3 or index == 4 or index == 5:
+                self.assertTrue(cell.is_alive(), f"Cell no. {index}, should be True")
+            else:
+                self.assertFalse(cell.is_alive(), f"Cell no. {index}, should be False")
+
 
     def test_check_neighbours(self):
         board = Board(3)
