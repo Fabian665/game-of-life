@@ -16,8 +16,7 @@ class Board:
         for neighbour_row in range(-1, 2):
             for neighbour_column in range(-1, 2):
                 if not (neighbour_row == 0 and neighbour_column == 0):
-                    neighbour_row_copy = (neighbour_row + row_index)
-                    neighbour_column = (neighbour_column + col_index)
+                    neighbour_row_copy, neighbour_column = (neighbour_row + row_index), (neighbour_column + col_index)
 
                     if (0 <= neighbour_row_copy < (self._size - 1)) and (0 <= neighbour_column < (self._size - 1)):
                         sum_live_neighbours += self._board[neighbour_row_copy][neighbour_column].is_alive()
