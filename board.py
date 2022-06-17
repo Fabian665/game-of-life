@@ -18,7 +18,7 @@ class Board:
         self._height = height
         self._width = width if width is not None else height
         self._wrap = wrap
-        self._board = [[Cell() for _index in range(self._width)] for _index in range(self._height)]
+        self._board = [[Cell() for _column in range(self._width)] for _row in range(self._height)]
 
     def get_cell(self, row_index, col_index):
         """
