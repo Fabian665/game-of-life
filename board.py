@@ -86,14 +86,15 @@ class Board:
             for neighbour_column in range(-1, 2):
                 if not (neighbour_row == 0 and neighbour_column == 0):  # skip the counting for the piece itself
                     # switch from relative position to absolute
-                    neighbour_row_copy, neighbour_column = (neighbour_row + row_index), (neighbour_column + col_index)
+                    (y, x) = (neighbour_row + row_index), (neighbour_column + col_index)
 
                     # check that the index doesn't exceed the boards limit
                     if self._wrap:
-                        sum_live_neighbours += self._board[neighbour_row_copy % self._height][neighbour_column % self._width].is_alive()
+                        y, x = y % self._height, x % self._width
+                        sum_live_neighbours += self.get_cell(y, x).is_alive()
                     else:
-                        if (0 <= neighbour_row_copy < self._height) and (0 <= neighbour_column < self._width):
-                            sum_live_neighbours += self._board[neighbour_row_copy][neighbour_column].is_alive()
+                        if (0 <= y < self._height) and (0 <= x < self._width):
+                            sum_live_neighbours += self.get_cell(y, x).is_alive()
 
         return sum_live_neighbours
 
