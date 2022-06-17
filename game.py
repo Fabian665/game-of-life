@@ -13,7 +13,7 @@ class Game:
             1:
                 (
                     "Kok's galaxy",
-                    (13, 13),
+                    (13, 13, False),
                     [
                         (2, 2), (2, 3), (2, 5), (2, 6), (2, 7), (2, 8), (2, 9), (2, 10),
                         (3, 2), (3, 3), (3, 5), (3, 6), (3, 7), (3, 8), (3, 9), (3, 10),
@@ -29,7 +29,7 @@ class Game:
             2:
                 (
                     "Glider gun maker",
-                    (30, 50),
+                    (30, 50, False),
                     [
                         (2, 35),
                         (3, 35), (3, 37),
@@ -50,6 +50,16 @@ class Game:
                         (20, 29), (20, 30), (20, 31),
                         (21, 29),
                         (22, 30)
+                    ]
+                ),
+            3:
+                (
+                    "simple glider",
+                    (10, 10, True),
+                    [
+                        (7, 1),
+                        (8, 2),
+                        (9, 0), (9, 1), (9, 2)
                     ]
                 )
         }
@@ -102,7 +112,7 @@ class Game:
             # Print updated board
             print(board.update())
             print("Press ctrl+c to end")
-            time.sleep(0.15)
+            time.sleep(0.01)
 
 
 if __name__ == '__main__':

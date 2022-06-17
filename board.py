@@ -5,17 +5,19 @@ class Board:
     """
     a board for Conway's Game of Life
     """
-    def __init__(self, height=35, width=None):
+    def __init__(self, height=35, width=None, wrap=False):
         """
         Initializes a board with turned off cells, if width not specified it defaults to height
 
         Parameters
         ----------
+        wrap
         height: int
         width: int
         """
-        self._width = width
-        self._height = width if height is None else height
+        self._height = height
+        self._width = width if width is not None else height
+        self._wrap = wrap
         self._board = [[Cell() for _index in range(self._width)] for _index in range(self._height)]
 
     def get_cell(self, row_index, col_index):
@@ -87,8 +89,11 @@ class Board:
                     neighbour_row_copy, neighbour_column = (neighbour_row + row_index), (neighbour_column + col_index)
 
                     # check that the index doesn't exceed the boards limit
-                    if (0 <= neighbour_row_copy < self._height) and (0 <= neighbour_column < self._width):
-                        sum_live_neighbours += self._board[neighbour_row_copy][neighbour_column].is_alive()
+                    if self._wrap:
+                        sum_live_neighbours += self._board[neighbour_row_copy % self._height][neighbour_column % self._width].is_alive()
+                    else:
+                        if (0 <= neighbour_row_copy < self._height) and (0 <= neighbour_column < self._width):
+                            sum_live_neighbours += self._board[neighbour_row_copy][neighbour_column].is_alive()
 
         return sum_live_neighbours
 
@@ -101,9 +106,9 @@ class Board:
         iterable
             each element is of type cell
         """
-        for row in self._board:
-            for cell in row:
-                yield cell
+        for y, row in enumerate(self._board):
+            for x, cell in enumerate(row):
+                yield (y, x), cell
 
     def flip_cell(self, row, column):
         """

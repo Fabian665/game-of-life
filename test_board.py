@@ -10,13 +10,13 @@ class BoardTest(TestCase):
         except IndexError:
             self.fail("update went out of bounds")
 
-        for cell in board.cells_generator():
+        for _, cell in board.cells_generator():
             self.assertFalse(cell.is_alive())
 
         board.flip_cell(1, 1)
         board.update()
 
-        for index, cell in enumerate(board.cells_generator()):
+        for _, cell in board.cells_generator():
             self.assertFalse(cell.is_alive())
 
         board = Board(3)
@@ -25,7 +25,7 @@ class BoardTest(TestCase):
         board.flip_cell(1, 2)
         board.update()
 
-        for index, cell in enumerate(board.cells_generator()):
+        for index, (_, cell) in enumerate(board.cells_generator()):
             if index == 1 or index == 2 or index == 4 or index == 5:
                 self.assertTrue(cell.is_alive(), f"Cell no. {index}, should be True")
             else:
@@ -37,7 +37,7 @@ class BoardTest(TestCase):
         board.flip_cell(1, 2)
         board.update()
 
-        for index, cell in enumerate(board.cells_generator()):
+        for index, (_, cell) in enumerate(board.cells_generator()):
             if index == 1 or index == 4 or index == 7:
                 self.assertTrue(cell.is_alive(), f"Cell no. {index}, should be True")
             else:
@@ -45,7 +45,7 @@ class BoardTest(TestCase):
 
         board.update()
 
-        for index, cell in enumerate(board.cells_generator()):
+        for index, (_, cell) in enumerate(board.cells_generator()):
             if index == 3 or index == 4 or index == 5:
                 self.assertTrue(cell.is_alive(), f"Cell no. {index}, should be True")
             else:
@@ -153,3 +153,22 @@ class BoardTest(TestCase):
                 board.update()
             except IndexError:
                 self.fail("IndexError occurred")
+
+    def test_simple_glider(self):
+        board = Board(10, wrap=True)
+        cells = [
+            (7, 1),
+            (8, 2),
+            (9, 0), (9, 1), (9, 2)
+        ]
+
+        board.flip_cells(cells)
+
+        for i in range(32):
+            board.update()
+
+        for coordinate, cell in board.cells_generator():
+            if coordinate in {(5, 9), (6, 0), (7, 0), (7, 8), (7, 9)}:
+                self.assertTrue(cell.is_alive(), f"cell in {coordinate} should be alive")
+            else:
+                self.assertFalse(cell.is_alive(), f"cell in {coordinate} should be dead")
