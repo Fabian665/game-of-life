@@ -46,9 +46,11 @@ class Board:
             the updated board
         """
         cells_to_flip = []
+
+        # Loop through the rows and columns
         for row_index in range(self._height):
             for col_index in range(self._width):
-                cell_coordinate = (row_index, col_index)
+                cell_coordinate = (row_index, col_index)  # saving the indices to a variable for readability
                 cell = self.get_cell(*cell_coordinate)
                 neighbours_sum = self.check_neighbours(*cell_coordinate)
                 if cell.is_alive():
@@ -65,7 +67,7 @@ class Board:
 
     def check_neighbours(self, row_index, col_index):
         """
-        check what is the amount of living neighbors
+        check what is the amount of living neighbors for the cell at (row_index, col_index)
 
         Parameters
         ----------
@@ -80,9 +82,11 @@ class Board:
         sum_live_neighbours = 0
         for neighbour_row in range(-1, 2):
             for neighbour_column in range(-1, 2):
-                if not (neighbour_row == 0 and neighbour_column == 0):
+                if not (neighbour_row == 0 and neighbour_column == 0):  # skip the counting for the piece itself
+                    # switch from relative position to absolute
                     neighbour_row_copy, neighbour_column = (neighbour_row + row_index), (neighbour_column + col_index)
 
+                    # check that the index doesn't exceed the boards limit
                     if (0 <= neighbour_row_copy < self._height) and (0 <= neighbour_column < self._width):
                         sum_live_neighbours += self._board[neighbour_row_copy][neighbour_column].is_alive()
 

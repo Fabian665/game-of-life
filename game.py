@@ -85,16 +85,21 @@ class Game:
         -------
         None
         """
+        # Load the configuration
         _, size, cells = self.configurations[configuration]
         board = Board(*size)
         board.flip_cells(cells)
 
+        # Clear the command line and and print the starting board
         os.system('cls' if os.name == 'nt' else 'clear')
         print(board)
         input("Press Enter to start animation")
 
+        # Game loop start
         while True:
+            # Clear the command line
             os.system('cls' if os.name == 'nt' else 'clear')
+            # Print updated board
             print(board.update())
             print("Press ctrl+c to end")
             time.sleep(0.15)
