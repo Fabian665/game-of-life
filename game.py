@@ -27,6 +27,8 @@ def main():
     textpos.centery += 5
     background.blit(text, textpos)
 
+    board = Board()
+
     play_button = PlayButton(30, 30)
     reset_button = TextButton(90, 30, "reset")
     cell = GameCell(30, 65)
