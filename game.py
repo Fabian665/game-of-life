@@ -31,7 +31,10 @@ def main():
 
     play_button = PlayButton(30, 30)
     reset_button = TextButton(90, 30, "reset")
-    cell = GameCell(30, 65)
+
+    cell = GameCell(46, 65)
+    cell1 = GameCell(30, 65)
+    cell2 = GameCell(30, 81)
 
     run = True
     while run:
@@ -40,6 +43,8 @@ def main():
         play_button.draw(background)
         reset_button.draw(background)
         cell.draw(background)
+        cell1.draw(background)
+        cell2.draw(background)
         pg.display.flip()
 
         for event in pg.event.get():
