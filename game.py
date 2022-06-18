@@ -1,5 +1,5 @@
 import pygame as pg
-from buttons import TextButton, PlayButton, GameCell
+from buttons import PlayButton, ResetButton, GameCell
 from board import Board
 
 
@@ -28,7 +28,7 @@ def main():
     board = Board()
 
     play_button = PlayButton(30, 30)
-    reset_button = TextButton(90, 30, "reset")
+    reset_button = ResetButton(90, 30)
 
     cells = []
 
@@ -53,7 +53,17 @@ def main():
             for i, (_, cell) in enumerate(board.cells_generator()):
                 cells[i].set_state(cell.is_alive())
 
+        if reset_button.was_clicked:
+            try:
+                board.reload()
+            except UnboundLocalError:
+                pass
+            reset_button.was_clicked = False
+            for i, (_, cell) in enumerate(board.cells_generator()):
+                cells[i].set_state(cell.is_alive())
+
         [cell.draw(background, board) for cell in cells]
+
         pg.display.flip()
 
         for event in pg.event.get():

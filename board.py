@@ -149,6 +149,14 @@ class Board:
         for cell in cells:
             self.flip_cell(*cell)
 
+    def set_state(self, row_index, column_index, state):
+        self.get_cell(row_index=row_index, col_index=column_index).set_state(state)
+
+    def reload(self):
+        for row_index, row in enumerate(self._board):
+            for column_index, cell in enumerate(row):
+                self.set_state(row_index=row_index, column_index=column_index, state=False)
+
     def __repr__(self):
         """
         return the string representation of the board

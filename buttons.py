@@ -93,8 +93,12 @@ class PlayButton(TextButton):
 
 
 class ResetButton(TextButton):
+    def __init__(self, x, y):
+        super().__init__(x, y, "reset")
+        self.was_clicked = False
+
     def action(self, additional):
-        pass
+        self.was_clicked = True
 
 
 class GameCell(Clickable):

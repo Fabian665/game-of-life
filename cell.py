@@ -23,6 +23,9 @@ class Cell:
         """
         self._alive = not self._alive
 
+    def set_state(self, state):
+        self._alive = state
+
     def __repr__(self):
         """
         Returns
