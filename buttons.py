@@ -23,11 +23,11 @@ class Clickable:
         self.pressed = False
         self.button_color = None
 
-    def draw(self, background):
-        self.click_logic()
+    def draw(self, background, additional=None):
+        self.click_logic(additional)
         pg.draw.rect(background, self.button_color, self.rect, border_radius=7)
 
-    def click_logic(self):
+    def click_logic(self, additional):
         mouse_pos = pg.mouse.get_pos()
         if self.rect.collidepoint(mouse_pos):
             self.button_color = self.hover_color
@@ -35,13 +35,13 @@ class Clickable:
                 self.pressed = True
                 self.button_color = self.click_color
             elif self.pressed:
-                self.action()
+                self.action(additional)
                 self.pressed = False
                 self.button_color = self.hover_color
         else:
             self.button_color = self.reg_color
 
-    def action(self):
+    def action(self, additional):
         pass
 
 
@@ -55,46 +55,54 @@ class TextButton(Clickable):
 
     def __init__(self, x, y, text):
         super().__init__(x, y)
-        self.text_surf = buttons_font.render(text, True, self.text_color)
-        self.text_rect = self.text_surf.get_rect(center=self.rect.center)
+        self.text_surf = None
+        self.text_rect = None
+        self.set_text(text)
 
-    def draw(self, background):
-        super().draw(background)
+    def draw(self, background, additional=None):
+        super().draw(background, additional)
         background.blit(self.text_surf, self.text_rect)
 
-    def action(self):
-        pass
+    def set_text(self, text):
+        self.text_surf = buttons_font.render(text, True, self.text_color)
+        self.text_rect = self.text_surf.get_rect(center=self.rect.center)
 
 
 class PlayButton(TextButton):
     toggled = False
     toggled_color = (100, 221, 23)
     untoggled_color = (230, 230, 230)
-    toggled_hover = (155, 234, 103)
+    toggled_hover = (245, 66, 66)
     untoggled_hover = (128, 227, 64)
 
-    def __init__(self, x, y, text):
-        super().__init__(x, y, text)
+    def __init__(self, x, y):
+        super().__init__(x, y, "play")
         self.hover_color = self.untoggled_hover
 
-    def action(self):
+    def draw(self, background, additional=None):
+        super().draw(background, additional)
+
+    def action(self, additional):
         if self.toggled:
+            self.set_text("play")
             self.toggled = False
             self.reg_color = self.untoggled_color
             self.hover_color = self.untoggled_hover
         else:
+            self.set_text("pause")
             self.toggled = True
             self.reg_color = self.toggled_color
             self.hover_color = self.toggled_hover
 
 
 class PauseButton(TextButton):
-    def action(self):
-        pass
+    def action(self, play_button=None):
+        if isinstance(play_button, PlayButton):
+            play_button.action(None)
 
 
 class ResetButton(TextButton):
-    def action(self):
+    def action(self, additional):
         pass
 
 

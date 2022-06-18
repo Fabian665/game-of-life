@@ -1,8 +1,7 @@
 import pygame as pg
-from buttons import TextButton, PlayButton
+from buttons import TextButton, PlayButton, PauseButton
 
 
-black = (0, 0, 0)
 white = (255, 255, 255)
 
 pg.init()
@@ -15,9 +14,10 @@ background.fill(white)
 
 font_title = pg.font.Font(None, 36)
 
+playing = False
+
 
 def main():
-    global white
     pg.display.set_caption("Conway's Game of Life")
 
     text = font_title.render("Conway's Game of Life - by Fabian", True, (10, 10, 10))
@@ -26,16 +26,16 @@ def main():
     textpos.centery += 5
     background.blit(text, textpos)
 
-    play_button = PlayButton(30, 30, "play")
-    pause_button = TextButton(90, 30, "pause")
-    reset_button = TextButton(150, 30, "reset")
+    play_button = PlayButton(30, 30)
+    # pause_button = PauseButton(90, 30, "pause")
+    reset_button = TextButton(90, 30, "reset")
 
     run = True
     while run:
 
         screen.blit(background, (0, 0))
         play_button.draw(background)
-        pause_button.draw(background)
+        # pause_button.draw(background, play_button)
         reset_button.draw(background)
         pg.display.flip()
 
