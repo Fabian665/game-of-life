@@ -107,11 +107,13 @@ class GameCell(Clickable):
     height = 15
     radius = 0
 
-    def __init__(self, x, y):
-        super().__init__(x, y)
+    def __init__(self, pos_x, pos_y, row, column):
+        super().__init__(pos_x, pos_y)
         self.hover_color = self.dead_hover
+        self.row = row
+        self.column = column
 
-    def action(self, additional):
+    def action(self, board):
         if self.toggled:
             self.toggled = False
             self.reg_color = self.dead_color
@@ -120,3 +122,14 @@ class GameCell(Clickable):
             self.toggled = True
             self.reg_color = self.alive_color
             self.hover_color = self.alive_hover
+        board.flip_cell(row=self.row, column=self.column)
+
+    def set_state(self, alive):
+        if alive:
+            self.toggled = True
+            self.reg_color = self.alive_color
+            self.hover_color = self.alive_hover
+        else:
+            self.toggled = False
+            self.reg_color = self.dead_color
+            self.hover_color = self.dead_hover

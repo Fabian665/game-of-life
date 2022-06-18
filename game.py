@@ -15,8 +15,6 @@ background.fill(white)
 
 font_title = pg.font.Font(None, 36)
 
-playing = False
-
 
 def main():
     pg.display.set_caption("Conway's Game of Life")
@@ -32,9 +30,16 @@ def main():
     play_button = PlayButton(30, 30)
     reset_button = TextButton(90, 30, "reset")
 
-    cell = GameCell(46, 65)
-    cell1 = GameCell(30, 65)
-    cell2 = GameCell(30, 81)
+    cells = []
+
+    pos_y = 49
+    pos_x = 40
+    for (y, x), _ in board.cells_generator():
+        if x == 0:
+            pos_x = 40
+            pos_y += 16
+        cells.append(GameCell(pos_x, pos_y, row=y, column=x))
+        pos_x += 16
 
     run = True
     while run:
@@ -42,9 +47,13 @@ def main():
         screen.blit(background, (0, 0))
         play_button.draw(background)
         reset_button.draw(background)
-        cell.draw(background)
-        cell1.draw(background)
-        cell2.draw(background)
+
+        if play_button.toggled:
+            board.update()
+            for i, (_, cell) in enumerate(board.cells_generator()):
+                cells[i].set_state(cell.is_alive())
+
+        [cell.draw(background, board) for cell in cells]
         pg.display.flip()
 
         for event in pg.event.get():
