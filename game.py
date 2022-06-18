@@ -28,7 +28,7 @@ def main():
 
     play_button = PlayButton(30, 30)
     reset_button = TextButton(90, 30, "reset")
-    cell = GameCell(30, 60)
+    cell = GameCell(30, 65)
 
     run = True
     while run:

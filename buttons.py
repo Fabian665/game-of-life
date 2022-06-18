@@ -99,12 +99,12 @@ class ResetButton(TextButton):
 
 class GameCell(Clickable):
     toggled = False
-    alive_color = (100, 221, 23)
-    dead_color = (230, 230, 230)
-    alive_hover = (245, 66, 66)
-    dead_hover = (128, 227, 64)
-    width = 10
-    height = 10
+    alive_color = (0, 0, 0)
+    dead_color = (220, 220, 220)
+    alive_hover = (100, 100, 100)
+    dead_hover = (170, 170, 170)
+    width = 15
+    height = 15
     radius = 0
 
     def __init__(self, x, y):
