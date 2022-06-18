@@ -1,6 +1,5 @@
 import pygame as pg
 
-
 pg.init()
 
 try:
@@ -23,23 +22,33 @@ class Clickable:
         self.rect = pg.Rect(x, y, self.width, self.height)
         self.pressed = False
         self.button_color = None
+        self._is_in = False
 
-    def draw(self, background, additional=None):
-        self.click_logic(additional)
+    def draw(self, background, event, additional=None):
+        self.click_logic(event, additional)
         pg.draw.rect(background, self.button_color, self.rect, border_radius=self.radius)
 
-    def click_logic(self, additional):
+    def click_logic(self, event, additional):
         mouse_pos = pg.mouse.get_pos()
         if self.rect.collidepoint(mouse_pos):
+            self._is_in = True
             self.button_color = self.hover_color
-            if pg.mouse.get_pressed()[0]:
-                self.pressed = True
+            if isinstance(event, pg.event.EventType) and event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
                 self.button_color = self.click_color
-            elif self.pressed:
+                self.pressed = True
+            elif (self._is_in
+                  and isinstance(event, pg.event.EventType)
+                  and event.type == pg.MOUSEBUTTONUP
+                  and event.button == 1):
                 self.action(additional)
                 self.pressed = False
                 self.button_color = self.hover_color
         else:
+            if (self.pressed
+                    and isinstance(event, pg.event.EventType)
+                    and event.type == pg.MOUSEBUTTONUP
+                    and event.button == 1):
+                self.pressed = False
             self.button_color = self.reg_color
 
     def action(self, additional):
@@ -59,8 +68,8 @@ class TextButton(Clickable):
         self.text_rect = None
         self.set_text(text)
 
-    def draw(self, background, additional=None):
-        super().draw(background, additional)
+    def draw(self, background, event, additional=None):
+        super().draw(background, event, additional)
         background.blit(self.text_surf, self.text_rect)
 
     def set_text(self, text):
