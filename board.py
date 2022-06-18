@@ -157,6 +157,9 @@ class Board:
             for column_index, cell in enumerate(row):
                 self.set_state(row_index=row_index, column_index=column_index, state=False)
 
+    def change_wrap_setting(self):
+        self._wrap = not self._wrap
+
     def __repr__(self):
         """
         return the string representation of the board

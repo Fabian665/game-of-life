@@ -92,9 +92,45 @@ class PlayButton(TextButton):
             self.hover_color = self.toggled_hover
 
 
+class WrapButton(TextButton):
+    toggled = False
+    toggled_color = (100, 221, 23)
+    untoggled_color = (230, 230, 230)
+    toggled_hover = (245, 66, 66)
+    untoggled_hover = (128, 227, 64)
+
+    def __init__(self, x, y):
+        super().__init__(x, y, "wrap")
+        self.hover_color = self.untoggled_hover
+        self.was_clicked = False
+
+    def action(self, additional):
+        if self.toggled:
+            self.set_text("wrap")
+            self.toggled = False
+            self.reg_color = self.untoggled_color
+            self.hover_color = self.untoggled_hover
+        else:
+            self.set_text("close")
+            self.toggled = True
+            self.reg_color = self.toggled_color
+            self.hover_color = self.toggled_hover
+        self.was_clicked = True
+
+
+
 class ResetButton(TextButton):
     def __init__(self, x, y):
         super().__init__(x, y, "reset")
+        self.was_clicked = False
+
+    def action(self, additional):
+        self.was_clicked = True
+
+
+class StepButton(TextButton):
+    def __init__(self, x, y):
+        super().__init__(x, y, "step")
         self.was_clicked = False
 
     def action(self, additional):

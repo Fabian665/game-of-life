@@ -1,5 +1,5 @@
 import pygame as pg
-from buttons import PlayButton, ResetButton, GameCell
+from buttons import PlayButton, StepButton, WrapButton, ResetButton, GameCell
 from board import Board
 
 
@@ -28,7 +28,9 @@ def main():
     board = Board()
 
     play_button = PlayButton(30, 30)
-    reset_button = ResetButton(90, 30)
+    step_button = StepButton(90, 30)
+    wrap_button = WrapButton(150, 30)
+    reset_button = ResetButton(210, 30)
 
     cells = []
 
@@ -46,6 +48,8 @@ def main():
 
         screen.blit(background, (0, 0))
         play_button.draw(background)
+        step_button.draw(background)
+        wrap_button.draw(background)
         reset_button.draw(background)
 
         if play_button.toggled:
@@ -55,11 +59,20 @@ def main():
                 cells[i].set_state(cell.is_alive())
 
         if reset_button.was_clicked:
-            try:
-                board.reload()
-            except UnboundLocalError:
-                pass
+            board.reload()
             reset_button.was_clicked = False
+            for i, (_, cell) in enumerate(board.cells_generator()):
+                cells[i].set_state(cell.is_alive())
+
+        if wrap_button.was_clicked:
+            board.change_wrap_setting()
+            wrap_button.was_clicked = False
+
+        if step_button.was_clicked:
+            board.update()
+            for i, (_, cell) in enumerate(board.cells_generator()):
+                cells[i].set_state(cell.is_alive())
+            step_button.was_clicked = False
             for i, (_, cell) in enumerate(board.cells_generator()):
                 cells[i].set_state(cell.is_alive())
 
