@@ -34,12 +34,12 @@ def main():
     while run:
 
         screen.blit(background, (0, 0))
+        play_button.draw(background)
+        reset_button.draw(background)
+        cell.draw(background)
         pg.display.flip()
 
         for event in pg.event.get():
-            play_button.draw(background, event)
-            reset_button.draw(background, event)
-            cell.draw(background, event)
             if event.type == pg.QUIT:
                 run = False
                 pg.quit()
