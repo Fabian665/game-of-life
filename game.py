@@ -30,28 +30,20 @@ def main():
     pause_button = TextButton(90, 30, "pause")
     reset_button = TextButton(150, 30, "reset")
 
-    screen.blit(background, (0, 0))
-    play_button.draw(background)
-    pause_button.draw(background)
-    reset_button.draw(background)
-    pg.display.flip()
-
     run = True
     while run:
+
+        screen.blit(background, (0, 0))
+        play_button.draw(background)
+        pause_button.draw(background)
+        reset_button.draw(background)
+        pg.display.flip()
+
         for event in pg.event.get():
-            # button.draw()
             if event.type == pg.QUIT:
                 run = False
                 pg.quit()
                 break
-            if event.type == pg.MOUSEBUTTONDOWN:
-                pass
-        if run:
-            screen.blit(background, (0, 0))
-            play_button.draw(background)
-            pause_button.draw(background)
-            reset_button.draw(background)
-            pg.display.flip()
 
 
 if __name__ == '__main__':

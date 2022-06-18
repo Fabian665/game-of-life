@@ -8,6 +8,7 @@ try:
 except pg.error:
     buttons_font = pg.font.Font(None, 16)
 
+
 class TextButton:
     reg_color = (230, 230, 230)
     hover_color = (220, 220, 220)
@@ -49,4 +50,15 @@ class TextButton:
 
 
 class PlayButton(TextButton):
-    pass
+    def action(self):
+        pass
+
+
+class PauseButton(TextButton):
+    def action(self):
+        pass
+
+
+class ResetButton(TextButton):
+    def action(self):
+        pass
