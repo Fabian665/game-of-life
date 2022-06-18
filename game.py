@@ -1,17 +1,17 @@
-import pygame
+import pygame as pg
 
 black = (0, 0, 0)
 white = (255, 255, 255)
 
-pygame.init()
+pg.init()
 screen_size = (width, height) = (640, 665)
-screen = pygame.display.set_mode(screen_size)
+screen = pg.display.set_mode(screen_size)
 
-background = pygame.Surface(screen.get_size())
+background = pg.Surface(screen.get_size())
 background = background.convert()
 background.fill(white)
 
-buttons_font = pygame.font.Font(None, 16)
+buttons_font = pg.font.Font(None, 16)
 
 
 class TextButton:
@@ -25,7 +25,7 @@ class TextButton:
     def __init__(self, x, y, text):
         self.x = x
         self.y = y
-        self.rect = pygame.Rect(x, y, self.width, self.height)
+        self.rect = pg.Rect(x, y, self.width, self.height)
         self.text_surf = buttons_font.render(text, True, self.text_color)
         self.text_rect = self.text_surf.get_rect(center=self.rect.center)
         self.pressed = False
@@ -34,14 +34,14 @@ class TextButton:
     def draw(self):
         global black
         self.click_logic()
-        pygame.draw.rect(background, self.button_color, self.rect, border_radius=7)
+        pg.draw.rect(background, self.button_color, self.rect, border_radius=7)
         background.blit(self.text_surf, self.text_rect)
 
     def click_logic(self):
-        mouse_pos = pygame.mouse.get_pos()
+        mouse_pos = pg.mouse.get_pos()
         if self.rect.collidepoint(mouse_pos):
             self.button_color = self.hover_color
-            if pygame.mouse.get_pressed()[0]:
+            if pg.mouse.get_pressed()[0]:
                 self.pressed = True
                 self.button_color = self.click_color
             elif self.pressed:
@@ -53,9 +53,9 @@ class TextButton:
 
 def main():
     global white
-    pygame.display.set_caption("Conway's Game of Life")
+    pg.display.set_caption("Conway's Game of Life")
 
-    font_title = pygame.font.Font(None, 36)
+    font_title = pg.font.Font(None, 36)
     text = font_title.render("Conway's Game of Life - by Fabian", True, (10, 10, 10))
     textpos = text.get_rect()
     textpos.centerx = background.get_rect().centerx
@@ -66,21 +66,21 @@ def main():
 
     screen.blit(background, (0, 0))
     button.draw()
-    pygame.display.flip()
+    pg.display.flip()
 
     run = True
     while run:
-        for event in pygame.event.get():
+        for event in pg.event.get():
             button.draw()
-            if event.type == pygame.QUIT:
+            if event.type == pg.QUIT:
                 run = False
-                pygame.quit()
+                pg.quit()
                 break
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pg.MOUSEBUTTONDOWN:
                 pass
         if run:
             screen.blit(background, (0, 0))
-            pygame.display.flip()
+            pg.display.flip()
 
 
 if __name__ == '__main__':
