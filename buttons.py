@@ -95,12 +95,6 @@ class PlayButton(TextButton):
             self.hover_color = self.toggled_hover
 
 
-class PauseButton(TextButton):
-    def action(self, play_button=None):
-        if isinstance(play_button, PlayButton):
-            play_button.action(None)
-
-
 class ResetButton(TextButton):
     def action(self, additional):
         pass

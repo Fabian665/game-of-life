@@ -1,5 +1,5 @@
 import pygame as pg
-from buttons import TextButton, PlayButton, PauseButton
+from buttons import TextButton, PlayButton
 
 
 white = (255, 255, 255)
@@ -27,7 +27,6 @@ def main():
     background.blit(text, textpos)
 
     play_button = PlayButton(30, 30)
-    # pause_button = PauseButton(90, 30, "pause")
     reset_button = TextButton(90, 30, "reset")
 
     run = True
@@ -35,7 +34,6 @@ def main():
 
         screen.blit(background, (0, 0))
         play_button.draw(background)
-        # pause_button.draw(background, play_button)
         reset_button.draw(background)
         pg.display.flip()
 
