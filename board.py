@@ -65,7 +65,7 @@ class Board:
         for cell in cells_to_flip:
             self.flip_cell(*cell)
 
-        return self
+        return self, self._board.copy()
 
     def check_neighbours(self, row_index, col_index):
         """

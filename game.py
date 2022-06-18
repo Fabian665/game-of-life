@@ -1,5 +1,6 @@
 import pygame as pg
 from buttons import TextButton, PlayButton, GameCell
+from board import Board
 
 
 white = (255, 255, 255)

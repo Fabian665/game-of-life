@@ -110,7 +110,8 @@ class Game:
             # Clear the command line
             os.system('cls' if os.name == 'nt' else 'clear')
             # Print updated board
-            print(board.update())
+            board, _ = board.update()
+            print(board)
             print("Press ctrl+c to end")
             time.sleep(0.01)
 
