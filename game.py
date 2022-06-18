@@ -11,8 +11,12 @@ background = pg.Surface(screen.get_size())
 background = background.convert()
 background.fill(white)
 
-buttons_font = pg.font.Font(None, 16)
+try:
+    buttons_font = pg.font.SysFont("calibri", 16)
+except pg.error:
+    buttons_font = pg.font.Font(None, 16)
 
+font_title = pg.font.Font(None, 36)
 
 class TextButton:
     reg_color = (230, 230, 230)
@@ -45,33 +49,40 @@ class TextButton:
                 self.pressed = True
                 self.button_color = self.click_color
             elif self.pressed:
+                self.action()
                 self.pressed = False
                 self.button_color = self.hover_color
         else:
             self.button_color = self.reg_color
+
+    def action(self):
+        pass
 
 
 def main():
     global white
     pg.display.set_caption("Conway's Game of Life")
 
-    font_title = pg.font.Font(None, 36)
     text = font_title.render("Conway's Game of Life - by Fabian", True, (10, 10, 10))
     textpos = text.get_rect()
     textpos.centerx = background.get_rect().centerx
     textpos.centery += 5
     background.blit(text, textpos)
 
-    button = TextButton(30, 30, "Hello")
+    play_button = TextButton(30, 30, "play")
+    pause_button = TextButton(90, 30, "pause")
+    reset_button = TextButton(150, 30, "reset")
 
     screen.blit(background, (0, 0))
-    button.draw()
+    play_button.draw()
+    pause_button.draw()
+    reset_button.draw()
     pg.display.flip()
 
     run = True
     while run:
         for event in pg.event.get():
-            button.draw()
+            # button.draw()
             if event.type == pg.QUIT:
                 run = False
                 pg.quit()
@@ -80,6 +91,9 @@ def main():
                 pass
         if run:
             screen.blit(background, (0, 0))
+            play_button.draw()
+            pause_button.draw()
+            reset_button.draw()
             pg.display.flip()
 
 
