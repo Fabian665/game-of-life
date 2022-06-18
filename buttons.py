@@ -10,11 +10,12 @@ except pg.error:
 
 
 class Clickable:
-    reg_color = None
+    reg_color = (230, 230, 230)
+    click_color = (240, 240, 240)
     hover_color = None
-    click_color = None
     width = None
     height = None
+    radius = None
 
     def __init__(self, x, y):
         self.x = x
@@ -25,7 +26,7 @@ class Clickable:
 
     def draw(self, background, additional=None):
         self.click_logic(additional)
-        pg.draw.rect(background, self.button_color, self.rect, border_radius=7)
+        pg.draw.rect(background, self.button_color, self.rect, border_radius=self.radius)
 
     def click_logic(self, additional):
         mouse_pos = pg.mouse.get_pos()
@@ -46,12 +47,11 @@ class Clickable:
 
 
 class TextButton(Clickable):
-    reg_color = (230, 230, 230)
     hover_color = (220, 220, 220)
-    click_color = (240, 240, 240)
     text_color = (0, 0, 0)
     width = 55
     height = 25
+    radius = 7
 
     def __init__(self, x, y, text):
         super().__init__(x, y)
@@ -79,9 +79,6 @@ class PlayButton(TextButton):
         super().__init__(x, y, "play")
         self.hover_color = self.untoggled_hover
 
-    def draw(self, background, additional=None):
-        super().draw(background, additional)
-
     def action(self, additional):
         if self.toggled:
             self.set_text("play")
@@ -101,9 +98,25 @@ class ResetButton(TextButton):
 
 
 class GameCell(Clickable):
-    reg_color = (240, 240, 240)
-    hover_color = (220, 220, 220)
-    live_hover_color = (20, 20, 20)
-    click_color = (0, 0, 0)
+    toggled = False
+    alive_color = (100, 221, 23)
+    dead_color = (230, 230, 230)
+    alive_hover = (245, 66, 66)
+    dead_hover = (128, 227, 64)
     width = 10
     height = 10
+    radius = 0
+
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.hover_color = self.dead_hover
+
+    def action(self, additional):
+        if self.toggled:
+            self.toggled = False
+            self.reg_color = self.dead_color
+            self.hover_color = self.dead_hover
+        else:
+            self.toggled = True
+            self.reg_color = self.alive_color
+            self.hover_color = self.alive_hover

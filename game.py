@@ -1,5 +1,5 @@
 import pygame as pg
-from buttons import TextButton, PlayButton
+from buttons import TextButton, PlayButton, GameCell
 
 
 white = (255, 255, 255)
@@ -28,6 +28,7 @@ def main():
 
     play_button = PlayButton(30, 30)
     reset_button = TextButton(90, 30, "reset")
+    cell = GameCell(30, 60)
 
     run = True
     while run:
@@ -35,6 +36,7 @@ def main():
         screen.blit(background, (0, 0))
         play_button.draw(background)
         reset_button.draw(background)
+        cell.draw(background)
         pg.display.flip()
 
         for event in pg.event.get():
