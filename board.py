@@ -126,6 +126,12 @@ class Board:
         """
         self._board[row][column].change_state()
 
+    def get_board_list(self):
+        return self._board.copy()
+
+    def get_size(self):
+        return self._height, self._width
+
     def flip_cells(self, cells: list):
         """
         flips many cells using flip_cell
