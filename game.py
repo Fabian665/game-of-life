@@ -50,6 +50,7 @@ def main():
 
         if play_button.toggled:
             board.update()
+            pg.time.delay(30)
             for i, (_, cell) in enumerate(board.cells_generator()):
                 cells[i].set_state(cell.is_alive())
 
