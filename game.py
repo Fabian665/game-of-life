@@ -1,5 +1,5 @@
 import pygame as pg
-from buttons import TextButton
+from buttons import TextButton, PlayButton
 
 
 black = (0, 0, 0)
@@ -26,7 +26,7 @@ def main():
     textpos.centery += 5
     background.blit(text, textpos)
 
-    play_button = TextButton(30, 30, "play")
+    play_button = PlayButton(30, 30, "play")
     pause_button = TextButton(90, 30, "pause")
     reset_button = TextButton(150, 30, "reset")
 

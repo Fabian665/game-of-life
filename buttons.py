@@ -67,8 +67,25 @@ class TextButton(Clickable):
 
 
 class PlayButton(TextButton):
+    toggled = False
+    toggled_color = (100, 221, 23)
+    untoggled_color = (230, 230, 230)
+    toggled_hover = (155, 234, 103)
+    untoggled_hover = (128, 227, 64)
+
+    def __init__(self, x, y, text):
+        super().__init__(x, y, text)
+        self.hover_color = self.untoggled_hover
+
     def action(self):
-        pass
+        if self.toggled:
+            self.toggled = False
+            self.reg_color = self.untoggled_color
+            self.hover_color = self.untoggled_hover
+        else:
+            self.toggled = True
+            self.reg_color = self.toggled_color
+            self.hover_color = self.toggled_hover
 
 
 class PauseButton(TextButton):
@@ -82,4 +99,9 @@ class ResetButton(TextButton):
 
 
 class GameCell(Clickable):
-    pass
+    reg_color = (240, 240, 240)
+    hover_color = (220, 220, 220)
+    live_hover_color = (20, 20, 20)
+    click_color = (0, 0, 0)
+    width = 10
+    height = 10
