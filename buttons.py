@@ -79,3 +79,7 @@ class PauseButton(TextButton):
 class ResetButton(TextButton):
     def action(self):
         pass
+
+
+class GameCell(Clickable):
+    pass
