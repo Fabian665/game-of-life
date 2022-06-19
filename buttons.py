@@ -47,9 +47,9 @@ class Clickable:
 
 
 class TextButton(Clickable):
-    hover_color = (220, 220, 220)
+    hover_color = (210, 210, 210)
     text_color = (0, 0, 0)
-    width = 55
+    width = 60
     height = 25
     radius = 7
 
@@ -94,24 +94,26 @@ class PlayButton(TextButton):
 
 class WrapButton(TextButton):
     toggled = False
-    toggled_color = (100, 221, 23)
-    untoggled_color = (230, 230, 230)
-    toggled_hover = (245, 66, 66)
-    untoggled_hover = (128, 227, 64)
+    toggled_color = (37, 44, 174)
+    untoggled_color = (250, 190, 21)
+    toggled_hover = (102, 107, 200)
+    untoggled_hover = (255, 217, 110)
 
     def __init__(self, x, y):
-        super().__init__(x, y, "wrap")
+        super().__init__(x, y, "closed")
         self.hover_color = self.untoggled_hover
+        self.reg_color = self.untoggled_color
         self.was_clicked = False
 
     def action(self, additional):
         if self.toggled:
-            self.set_text("wrap")
+            self.set_text("closed")
             self.toggled = False
             self.reg_color = self.untoggled_color
             self.hover_color = self.untoggled_hover
         else:
-            self.set_text("close")
+            self.text_color = (255, 255, 255)
+            self.set_text("wrapped")
             self.toggled = True
             self.reg_color = self.toggled_color
             self.hover_color = self.toggled_hover

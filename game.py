@@ -27,14 +27,14 @@ def main():
 
     board = Board()
 
-    play_button = PlayButton(30, 30)
-    step_button = StepButton(90, 30)
-    wrap_button = WrapButton(150, 30)
-    reset_button = ResetButton(210, 30)
+    play_button = PlayButton(40, 35)
+    step_button = StepButton(105, 35)
+    wrap_button = WrapButton(170, 35)
+    reset_button = ResetButton(235, 35)
 
     cells = []
 
-    pos_y = 49
+    pos_y = 54
     pos_x = 40
     for (y, x), _ in board.cells_generator():
         if x == 0:
@@ -59,6 +59,8 @@ def main():
                 cells[i].set_state(cell.is_alive())
 
         if reset_button.was_clicked:
+            if play_button.toggled:
+                play_button.action(None)
             board.reload()
             reset_button.was_clicked = False
             for i, (_, cell) in enumerate(board.cells_generator()):
@@ -68,13 +70,11 @@ def main():
             board.change_wrap_setting()
             wrap_button.was_clicked = False
 
-        if step_button.was_clicked:
+        if step_button.was_clicked and not play_button.toggled:
             board.update()
             for i, (_, cell) in enumerate(board.cells_generator()):
                 cells[i].set_state(cell.is_alive())
             step_button.was_clicked = False
-            for i, (_, cell) in enumerate(board.cells_generator()):
-                cells[i].set_state(cell.is_alive())
 
         [cell.draw(background, board) for cell in cells]
 
