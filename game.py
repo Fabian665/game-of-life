@@ -3,15 +3,13 @@ from buttons import PlayButton, StepButton, WrapButton, ResetButton, GameCell
 from board import Board
 
 
-white = (255, 255, 255)
-
 pg.init()
 screen_size = (width, height) = (640, 665)
 screen = pg.display.set_mode(screen_size)
 
 background = pg.Surface(screen.get_size())
 background = background.convert()
-background.fill(white)
+background.fill((255, 255, 255))
 
 font_title = pg.font.Font(None, 36)
 
