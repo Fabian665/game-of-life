@@ -40,7 +40,7 @@ class Clickable:
         self.pressed = False
         self.button_color = None
 
-    def draw(self, background):
+    def draw(self, background, **kwargs):
         """
         Draw a the pygame object on screen and.
 
@@ -54,10 +54,10 @@ class Clickable:
         None
 
         """
-        self.click_logic()
+        self.click_logic(**kwargs)
         pg.draw.rect(background, self.button_color, self.rect, border_radius=self.radius)
 
-    def click_logic(self):
+    def click_logic(self, **kwargs):
         """
         The click logic for a regular clickable.
 
@@ -73,7 +73,7 @@ class Clickable:
                 self.pressed = True
                 self.button_color = self.click_color
             elif self.pressed:
-                self.action()
+                self.action(**kwargs)
                 self.pressed = False
                 self.button_color = self.hover_color
         else:
@@ -121,7 +121,7 @@ class TextButton(Clickable):
         self.text = text
         self.set_text()
 
-    def draw(self, background):
+    def draw(self, background, **kwargs):
         """
         Draw a the pygame object on screen and.
 

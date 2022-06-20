@@ -67,7 +67,7 @@ def main():
         # reset the board if the reset button is clicked
         if reset_button.was_clicked:
             if play_button.toggled:
-                play_button.action(None)
+                play_button.action()
             board.reload()
             reset_button.was_clicked = False
             for i, (_, cell) in enumerate(board.cells_generator()):
@@ -86,7 +86,7 @@ def main():
             step_button.was_clicked = False
 
         # draw all cells
-        [cell.draw(background, board) for cell in cells]
+        [cell.draw(background, board=board) for cell in cells]
 
         pg.display.flip()
 
