@@ -3,10 +3,25 @@ from buttons import PlayButton, StepButton, WrapButton, ResetButton, GameCell
 from board import Board
 
 
+rows, columns = 50, 50
+
+
+# create board
+board = [[False for _column in range(rows)] for _row in range(columns)]
+
+
+def gen_cells():
+    for row_index, row in enumerate(board):
+        for col_index, cell in enumerate(row):
+            yield (row_index, col_index), cell
+
+
 # initialize pygame and screen
 pg.init()
-screen_size = (width, height) = (640, 665)
-screen = pg.display.set_mode(screen_size)
+cell_dimension = 16
+border_width, border_height = 80, 105
+width, height = ((rows * cell_dimension) + border_width, (columns * cell_dimension) + border_height)
+screen = pg.display.set_mode((width, height))
 
 # initialize background object
 background = pg.Surface(screen.get_size())
@@ -15,18 +30,18 @@ background.fill((255, 255, 255))
 
 font_title = pg.font.Font(None, 36)
 
+pg.display.set_caption("Conway's Game of Life")
+
+# make text object and blit it
+text = font_title.render("Conway's Game of Life - by Fabian", True, (10, 10, 10))
+textpos = text.get_rect()
+textpos.centerx = background.get_rect().centerx
+textpos.centery += 5
+background.blit(text, textpos)
+
 
 def main():
-    pg.display.set_caption("Conway's Game of Life")
-
-    # make text object and blit it
-    text = font_title.render("Conway's Game of Life - by Fabian", True, (10, 10, 10))
-    textpos = text.get_rect()
-    textpos.centerx = background.get_rect().centerx
-    textpos.centery += 5
-    background.blit(text, textpos)
-
-    board = Board()  # initialize a Game of Life board
+    board = Board(50)  # initialize a Game of Life board
 
     # initialize buttons from buttons.py
     play_button = PlayButton(40, 35)
